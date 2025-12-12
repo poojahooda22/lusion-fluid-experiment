@@ -1,0 +1,112 @@
+/* Remove default browser margins */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Optional: prevents scroll bars if you want a fixed app */
+  background-color: #f4f4f7; /* Matches the Lusion light grey background */
+  font-family: 'Helvetica Neue', sans-serif; /* Placeholder font */
+}
+
+.main-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* --- CANVAS LAYER --- */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Sits behind content */
+  pointer-events: none; /* Let clicks pass through if needed, though R3F handles events */
+}
+
+/* --- LAYOUT LAYER --- */
+.layout {
+  position: relative;
+  z-index: 10; /* Sits on top of canvas */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  
+  /* MAGIC TRICK: 
+     pointer-events: none allows the mouse to "pass through" the layout 
+     divs so the underlying Canvas catches the hover events. 
+  */
+  pointer-events: none;
+}
+
+/* --- INTERACTIVE ELEMENTS --- */
+/* We must re-enable pointer events for buttons/text so they can be clicked/selected */
+.nav-btn, 
+.logo, 
+.hero-description p {
+  pointer-events: auto;
+}
+
+/* Styling for the demo look */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.nav-group {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  border: none;
+  background: rgba(0,0,0,0.05);
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-btn.primary {
+  background: #222;
+  color: white;
+}
+
+.nav-btn:hover {
+  transform: scale(1.05);
+}
+
+.hero-title {
+  font-size: 8vw;
+  line-height: 1;
+  font-weight: 400; /* Thin font looks more elegant like Lusion */
+  margin: 10;
+  color: #111;
+  /* Let mouse pass through the big title so fluid works ON TOP of the text visually */
+  pointer-events: none; 
+}
+
+.hero-description {
+  margin-top: 50px;
+  max-width: 500px;
+  margin-left: auto; /* Push to right */
+  line-height: 1.6;
+  color: #444;
+}
